@@ -84,3 +84,23 @@ for k in key_1:
     print(k)
 for k in key_2[0]:
     print(k)
+
+print()
+
+  # 8.9
+print(life['animals']['cat'])
+
+  # 8.10
+square = {i:i**2 for i in range(10)}
+print(square)
+
+  # 8.13
+dict_glass = dict(zip(('optimist', 'pessimist', 'troll'), ('The glass is half full', 'The glass is half empty', 'How did you get the glass?')))
+print(dict_glass)
+
+  # 8.14
+titles = ['Creature of Habit', 'Crewel Fate']
+plots = ['A nun turns into a mon ster', 'A haunted yarn shop']
+
+movie = dict(zip(titles, plots))
+print(movie)
