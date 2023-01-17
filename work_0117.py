@@ -85,7 +85,30 @@ for k in key_1:
 for k in key_2[0]:
     print(k)
 
-print()
+    # list(life.values) = [{'cat': 'Henri', 'octopi': 'Grumpy', 'emus': 'Lucy'}, {}, {}]
+    #  ㄴ> 순회하며 key 들이 있는 경우 리스트로 묶어서 가져오기
+    # 결과물 : [['cat', 'octopi', 'emus']]
+    # for문 돌려서 출력
+
+  # 8.8 - 방법2
+key_list = []
+items = list(life.items())
+print('items : ', items)
+for i in items:
+    print(i)
+    key_list.append(i[0])
+    if type(i[1]) == dict and i[1].keys():
+        for key2 in list(i[1].keys()):
+            key_list.append(key2)
+print(key_list)
+
+    # 빈 리스트(key_list) 만들기
+    # items 리스트 만들기
+    # items 리스트 순회하며 key 저장, 해당 key가 가지는 value의 타입, 빈 리스트 여부 확인
+    # 저장할 하위 키가 있을 시 추가로 append
+    # key_list 출력
+
+
 
   # 8.9
 print(life['animals']['cat'])
