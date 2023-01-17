@@ -38,3 +38,49 @@ for word1, word2 in rhymes:
     line1.append(word1.title() + "!")
     print(' '.join(line1))
     print(start2, word2 + '.')
+
+
+  # 8.1
+e2f = {'dog':'chien', 'cat':'chat', 'walrus':'morse'}
+
+  # 8.2
+print(e2f['walrus'])
+
+  # 8.3
+words = list(e2f.items())
+# f2e = {}
+# for k, v in words:
+#     f2e[v] = k
+f2e = { v:k for k, v in words}
+
+print(f2e)
+
+  # 8.4
+key = [k for k, v in e2f.items() if v == "chien"]
+print(key[0])
+
+  # 8.5
+for k in list(e2f.keys()):
+    print(k)
+
+  # 8.6
+life = {
+    'animals': {
+    'cat': 'Henri',
+    'octopi': 'Grumpy',
+    'emus': 'Lucy'
+    },
+    'planets':{},
+    'other':{}
+}
+
+  # 8.7
+print(life.keys())
+
+  # 8.8
+key_1 = list(life.keys()) # [animals, planets, other]
+key_2 = [list(i.keys()) for i in list(life.values()) if list(i.keys())]
+for k in key_1:
+    print(k)
+for k in key_2[0]:
+    print(k)
