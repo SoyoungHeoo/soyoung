@@ -1,58 +1,36 @@
-def calc(x, y):
-    '''
-    나누기 함수
-    :param x:
-    :param y:
-    :return: x / y
-    '''
-    return x / y
+# 클래스
 
-# 파이썬은 모든 에러가 실행에러. (runtime error)
-# 여기에 대한 필연적인 해결책을 만들어두기 위한 것 = try - except 구문
+class Pokemon:
 
+    def __init__(self, name, owner, *args): # 객체 생성시 동작. 객체 생성시 매개변수를 받아오게끔 할 수 있다.
+        self.name = name
+        self.owner = owner
+        self.skill = args
+        print(f"포켓몬 {name} 생성됨")
 
+    def info(self):
+        print(f'{self.owner}의 포켓몬은 {self.name}입니다.')
+        for s in self.skill:
+            print(s)
 
-# try, exception
+# 각각의 객체에는 다른 주소값이 할당돼있다.
+p1 = Pokemon('피카츄', '지우', '50만볼트', '번개')
+p2 = Pokemon('꼬부기', '오바람', '하이드로펌프')
 
+# print(f'{p1.owner}의 포켓몬은 {p1.name}입니다.') # 직접접근
 
-
-#
-
-# 9.2
-
-# while 문 사용
-def get_odds(first=0, last=10):
-    '''
-    입력받은 범위 안에서 홀수를 반환하는 제너레이터함수
-    :param first: integer
-    :param last: integer
-    :return: generator
-    '''
-    number = first
-    while number < last:        # 이번 차례의 수가 범위안에 해당할 때
-        if (number % 2 == 1):   # 이번 차례의 수가 홀수라면
-            yield number        # 값 내놓기
-            number += 2         # 2를 더해서 다음 홀수 만들기
-        else:                   # 이번 차례의 수가 홀수가 아니라면
-            number += 1         # 1을 더해서 홀수로 만들기
-
-gen_odd = get_odds()            # 함수 실행하여 변수에 저장 -> 제너레이터 객체가 gen_odd에 저장된다.
-# gen_odd2 = (i for i in range)
-
-for i in gen_odd:               # for문 돌려 홀수들을 출력한다.
-    print(i)                    # 1, 3, 5, 7, 9 가 차례로 출력될 것이다.
+p1.info()
+p2.info() # 멤버함수에 접근하여 동작시키기
 
 
-groups = {
-    '빅뱅': ['GD', '태양', '탑', '대성', '승리'],
-    '마마무': ['솔라', '화사']
-}
+# concrete thing / abstract thing
+# 구체적 / 추상적
 
+# 강한 결속관계
+# 문법적으로 class 생성할 때 class 이름 뒤에 부모 class의 이름을 적는다.
 
-# 딕셔너리 groups의 value 들의 요소들 뽑아오기
-for i, j in groups.items(): # for문에 key, value 튜플로 받아오는게 핵심
-    for j2 in j :
-        if j2 == '승리':
-            continue
-        print(j2)
+class Pikachu(Pokemon): # inheritance
+    pass
 
+pi1 = Pikachu('피카츄', '덴트', '번개')
+pi1.info()
