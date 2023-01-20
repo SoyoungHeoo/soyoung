@@ -25,8 +25,8 @@ class Pokemon:
 
 
 class Pikachu(Pokemon): # inheritance
-    def __init__(self, owner, *args): # 생성자 오버라이딩. (오버라이딩하지 않으면 부모 클래스의 생성자 함수 자동 동작됨)
-        super().__init__(owner, args) # super : 부모클래스 객체.생성자 함수
+    def __init__(self, owner, *args): # 오버라이딩하지 않으면 부모 클래스의 생성자 함수 자동 동작됨)
+        super().__init__(owner, args) # super : 부모클래스 객체.
         self.name = "피카츄"
         print(f"{self.name}")
 
@@ -75,10 +75,12 @@ print(m1.says())
 # JAVA에서는 interface 라는 개념을 사용함.
 # 다중상속은 유지관리측면에서 문제가 발생할 확률이 높아서 잘 사용되지는 않는다.
 
+
+# 믹스인
 class PrettyMixin():
     def time_print(self):
         import datetime
-        print()
+        print("today : ", datetime.date.today())
 
 
     def dump(self):
@@ -92,16 +94,29 @@ t = Thing()
 t.name = "Nyarlathotep"
 t.feature = 'ichor'
 t.age = 'eldritch'
-t.dump()
+t.time_print()
 
 
 # 몇 객체지향 언어들에서는 외부에서 직접 접근할 수 없게 하는 기법을 제공함.
 # Public, Private, default
 
 # __ -> getter 또는 property(decorator, getter setter_?)
+# property 사용하기
+class Duck():
+    def __init__(self, input_name):
+        self.hidden_name = input_name
 
+    def get_name(self):
+        print('inside the getter')
+        return self.hidden_name # hidden_name 반환
 
+    def set_name(self, input_name):
+        print('inside the setter')
+        self.hidden_name = input_name # 받아온 이름으로 hidden_name 수정
+    name = property(get_name, set_name)
 
+don = Duck("Donald")
+print(don.name)
 
 # 클래스 변수 / 클래스 메소드
 # 클래스의 전체 구성 요소가 공유하는 변수 / 메소드.
