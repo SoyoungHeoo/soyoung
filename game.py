@@ -50,22 +50,19 @@ class Pairi(Pokemon): # inheritance
 
 while True:
     menu = input('1) 포켓몬 생성 2) 정보 조회 3) 공격 4) 프로그램 종료 :')
+
     if menu == '4':
         print('프로그램을 종료합니다')
         break
     elif menu == '1':
         pokemon = input('1) 피카츄 2) 꼬부기 3) 파이리 : ')
+        n = input('플레이어 이름 입력 : ')
+        s = input('사용 가능 기술 입력(/ 로 구분) : ')
         if pokemon == '1':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능 기술 입력(/ 로 구분) : ')
             p = Pikachu(n, s)
         elif pokemon == '2':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능 기술 입력(/ 로 구분) : ')
             p = Kobugi(n, s)
         elif pokemon == '3':
-            n = input('플레이어 이름 입력 : ')
-            s = input('사용 가능 기술 입력(/ 로 구분) : ')
             p = Pairi(n, s)
         else:
             print('메뉴에서 골라주세요')
