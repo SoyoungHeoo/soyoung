@@ -17,7 +17,7 @@ def delete_data(idx):
     for i in range(idx, len(pokemons)):
         del(pokemons[-1])
 
-    
+
 
 if __name__ == "__main__":
     print(pokemons)
