@@ -26,6 +26,7 @@ def insert_data(idx, new_p):
 
 pokemons = [{"파이리": 50}, {"피카츄": 40}, {"야도란": 30}, {"버터풀": 20}]
 
+
 if __name__ == "__main__":
     while True:
         print(pokemons)
