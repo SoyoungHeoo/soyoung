@@ -1,26 +1,38 @@
+def print_poly(px):
+    term = len(px) - 1
+    poly_str = "P(x) = "
+    for i in range(len(px)):
+        coef = px[i]
+        # if (coef >= 0):
+        #     poly_str += "+"
+        if i > 0 and coef > 0:
+            poly_str = poly_str + "+"
+        elif coef == 0:
+            term = term - 1
+            continue
+        poly_str = poly_str + f'{coef}x^{term}'
+        term = term -1
 
-pokemons = ['피카츄', '라이츄', '파이리', '꼬부기', '이상해']
+    return poly_str
 
+def calcPoly(value, px):
+    return_val = 0
+    term = len(px) - 1
 
-def delete_data(idx):
+    for i in range(len(px)):
+        coef = px[i]
+        return_val = return_val + coef* value ** term
+        term -= 1
 
-    if idx < 0 or idx > len(pokemons):
-        print("Out of range!")
-        return
+    return return_val
 
-    # for i in range(idx+1, len(pokemons)):
-    #     pokemons[i-1] = pokemons[i]
-    #     pokemons[i] = None
-    #
-    # del(pokemons[len(pokemons)-1])
-
-    for i in range(idx, len(pokemons)):
-        del(pokemons[-1])
-
-
+# 전역변수
+px = [7, -4, 0, 5]
 
 if __name__ == "__main__":
-    print(pokemons)
-    delete_data(2)
-    print(pokemons)
+    str =  print_poly(px)
+    print(str)
 
+    x_val = int(input("x값 : "))
+    px_val = calcPoly(x_val, px)
+    print(px_val)
