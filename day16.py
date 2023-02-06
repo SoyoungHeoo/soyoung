@@ -1,3 +1,4 @@
+import random
 
 class Node():
     def __init__(self, data=None):
@@ -122,15 +123,57 @@ def is_find(find_data):
             return True
     return False # 빈 노드 반환
 
+def count_odd_even():
+    global head, current
 
+    even, odd = 0, 0
+
+    # SRP 위배.
+    # 하나의 함수가 여러 용도로 만들어지면 안된다.
+    # if head == None:
+    #     return False
+
+    current = head
+    while True:
+        if current.data % 2 == 0:
+            even += 1
+        else:
+            odd += 1
+        if current.link == head:
+            break
+        current = current.link # 가리키는 대상 하나씩 뒤로 이동
+
+    return odd, even
+
+
+def make_minus_num(odd, even):
+    '''
+    홀수 짝수 개수 비교하여 다음 진행사항 결정
+    :param odd: 홀수개수
+    :param even: 짝수개수
+    :return: 홀수가 더 많으면 1, 짝수가 더 많으면 0
+    '''
+    if odd > even:
+        reminder = 1
+    else:
+        reminder = 0
+    current = head
+    while True:
+        if current.data % 2 == reminder:
+            current.data *= -1
+        if current.link == head:
+            break
+        current = current.link
 
 memory = []
 head, current, pre = None, None, None
-# data_array = [["지민", 180], ["정국", 177], ["뷔", 183], ["슈가", 175], ["진", 179]]
-data_array = ['피카츄', '파이리', '어니부기', '꼬부기', '버터풀']
+data_array = list()
 
 ## 메인 코드 부분 ##
 if __name__ == "__main__" :
+
+    for _ in range(7):
+        data_array.append(random.randint(1, 100))
 
     node = Node()
     node.data = data_array[0]
@@ -144,25 +187,8 @@ if __name__ == "__main__" :
         pre.link = node
         node.link = head
 
-    print(is_find("꼬부기"))
-    print(is_find("피카츄"))
-    print(is_find("김인하"))
-
     print_nodes(head)
-    #
-    # insert_data("피카츄", "라이츄")
-    # print_nodes(head)
-    #
-    # insert_data("꼬부기", "어니부기")
-    # print_nodes(head)
-    #
-    # delete_nodes("라이츄")
-    # print_nodes(head)
-    #
-    # delete_nodes("피죤스")
-    # print_nodes(head)
-    #
-    # print(find_nodes("파이리"))
-    # print(find_nodes("김철수"))
-    #
-    # print(make_linked_list())
+    o, e = count_odd_even()
+    print(f'Odd num = {o}, Even num = {e}')
+    make_minus_num(o, e)
+    print_nodes(head)
