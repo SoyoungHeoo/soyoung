@@ -123,47 +123,29 @@ def is_find(find_data):
             return True
     return False # 빈 노드 반환
 
-def count_odd_even():
+
+
+def make_reverse():
+    '''
+    양수는 음수로, 음수는 양수로 변경.
+    :return: 양수, 음수 개수 출력
+    '''
     global head, current
-
-    even, odd = 0, 0
-
-    # SRP 위배.
-    # 하나의 함수가 여러 용도로 만들어지면 안된다.
-    # if head == None:
-    #     return False
-
     current = head
+    plus_cnt, minus_cnt = 0, 0
     while True:
-        if current.data % 2 == 0:
-            even += 1
+        if current.data == 0:
+            pass
         else:
-            odd += 1
-        if current.link == head:
-            break
-        current = current.link # 가리키는 대상 하나씩 뒤로 이동
-
-    return odd, even
-
-
-def make_minus_num(odd, even):
-    '''
-    홀수 짝수 개수 비교하여 다음 진행사항 결정
-    :param odd: 홀수개수
-    :param even: 짝수개수
-    :return: 홀수가 더 많으면 1, 짝수가 더 많으면 0
-    '''
-    if odd > even:
-        reminder = 1
-    else:
-        reminder = 0
-    current = head
-    while True:
-        if current.data % 2 == reminder:
+            if current.data > 0:
+                plus_cnt += 1
+            elif current.data < 0:
+                minus_cnt += 1
             current.data *= -1
         if current.link == head:
             break
         current = current.link
+    return plus_cnt, minus_cnt
 
 memory = []
 head, current, pre = None, None, None
@@ -173,7 +155,7 @@ data_array = list()
 if __name__ == "__main__" :
 
     for _ in range(7):
-        data_array.append(random.randint(1, 100))
+        data_array.append(random.randint(-100, 100))
 
     node = Node()
     node.data = data_array[0]
@@ -188,7 +170,6 @@ if __name__ == "__main__" :
         node.link = head
 
     print_nodes(head)
-    o, e = count_odd_even()
-    print(f'Odd num = {o}, Even num = {e}')
-    make_minus_num(o, e)
+    plus, minus = make_reverse()
     print_nodes(head)
+    print(f"양수 : {plus} 음수 : {minus}")
