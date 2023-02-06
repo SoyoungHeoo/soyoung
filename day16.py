@@ -75,38 +75,58 @@ def find_nodes(find_data):
     return "Nameless"
 
 
+def make_linked_list(phone_list):
+    global memory, head, current, pre
+    print_nodes(head)
+
+    node = Node()
+    node.data = phone_list
+    memory.append(node)
+    if head == None:
+        head = node
+        return
+    if head.data[1] > phone_list[1]:
+        node.link = head
+        head = node
+        return
+    # 중간노드 삽입
+    current = head # 초기화. 처음부터 다시 수노히
+    while current.link != None:
+        pre = current
+        current = current.link
+        if current.data[1] > phone_list[1]:
+            pre.link = node
+            node.link = current
+            return
+    # 삽입하는 노드가 가장 큰 경우
+    current.link = node
+
+
 memory = []
 head, current, pre = None, None, None
-dataArray = ["피카츄", "잠만보", "파이리", "꼬부기", "버터풀"]
+data_array = [["지민", 180], ["정국", 177], ["뷔", 183], ["슈가", 175], ["진", 179]]
 
 ## 메인 코드 부분 ##
 if __name__ == "__main__" :
 
-    node = Node()		# 첫 번째 노드
-    node.data = dataArray[0]
-    head = node
-    memory.append(node)
-
-    for data in dataArray[1:] :	# 두 번째 이후 노드
-        pre = node
-        node = Node()
-        node.data = data
-        pre.link = node
-        memory.append(node)
+    for data in data_array :	# 두 번째 이후 노드
+        make_linked_list(data) # 한개씩 데이터르 넣어 알맞는 위치에 배치해줍니다
 
     print_nodes(head)
-
-    insert_data("피카츄", "라이츄")
-    print_nodes(head)
-
-    insert_data("꼬부기", "어니부기")
-    print_nodes(head)
-
-    delete_nodes("라이츄")
-    print_nodes(head)
-
-    delete_nodes("피죤스")
-    print_nodes(head)
-
-    print(find_nodes("파이리"))
-    print(find_nodes("김철수"))
+    #
+    # insert_data("피카츄", "라이츄")
+    # print_nodes(head)
+    #
+    # insert_data("꼬부기", "어니부기")
+    # print_nodes(head)
+    #
+    # delete_nodes("라이츄")
+    # print_nodes(head)
+    #
+    # delete_nodes("피죤스")
+    # print_nodes(head)
+    #
+    # print(find_nodes("파이리"))
+    # print(find_nodes("김철수"))
+    #
+    # print(make_linked_list())
