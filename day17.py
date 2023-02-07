@@ -1,6 +1,4 @@
-# 스택의 응용 : 웹브라우저 서핑하기 (last in - first out)
-import webbrowser
-import time
+# 스택의 응용 : 괄호 검사
 
 def is_stack_full():
     global SIZE, stack, top
@@ -40,29 +38,33 @@ def peek():
         return None
     return stack[top]
 
-SIZE = int(input("Stack Size : "))
-stack= [None for _ in range(SIZE)]
+def check_bracket(expr) :
+    for ch in expr:
+        if ch in '([{<':
+            push(ch)
+        elif ch in ')]}>':
+            out = pop()
+            if ch == ')' and out == '(':
+                pass
+            elif ch == ']' and out == '[':
+                pass
+            elif ch == '}' and out == '{':
+                pass
+            elif ch == '>' and out == '<':
+                pass
+            else:
+                return False
+        else :
+            pass
+    return is_stack_empty()
+
+SIZE = 10
+stack = [ None for _ in range(SIZE) ]
 top = -1
 
-
 if __name__ == "__main__":
+    expression_array = ['(A+B)', ')A+B(', '((A+B)-C', '(A+B]', '(<A+{B-C}/[C*D]>)']
 
-    urls = ['inha.edu', 'harvard.edu', 'yale.edu']
-
-    for url in urls:
-        push(url)
-        webbrowser.open('http://' + url)
-        print(url, end='-->')
-        time.sleep(1)
-
-    print("방문 종료")
-    time.sleep(5)
-
-    while True:
-        url = pop()
-        if url == None:
-            break
-        webbrowser.open('http://' + url)
-        print(url, end='-->')
-        time.sleep(1)
-    print("방문 종료")
+    for expression in expression_array:
+        top = -1
+        print(f'{expression} : {check_bracket(expression)}')
