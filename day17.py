@@ -1,67 +1,116 @@
-# 이진트리
+import random
+## 함수 선언 부분 ##
+class TreeNode() :
+	def __init__ (self) :
+		self.left = None
+		self.data = None
+		self.right = None
 
-# 이진트리 생성
 
-
-# 이진트리 순회 : 이진트리 노드 전체를 한 번씩 방문하는 것
-# 전위순회, 중위순회, 후위순회
-
-
-# 전위순회
-def preorder(node):
-    if node == None:
+def preorder(node) :
+	# if node == None:
+    if not node:
         return
-    print(node.data, end = "->")
+    print(node.data, end='->')
     preorder(node.left)
     preorder(node.right)
 
-def inorder(node):
-    if node == None:
-        return
-    inorder(node.left)
-    print(node.data, end = "->")
-    inorder(node.right)
+
+## 전역 변수 선언 부분 ##
+memory = []
+rootBook, rootAuth = None, None
+bookAry = [ ['어린왕자', '쌩떽쥐베리'],['이방인', '까뮈'], ['부활', '톨스토이'],
+		   ['신곡', '단테'], ['돈키호테', '세브반테스'], ['동물농장', '조지오웰'],
+		   ['데미안','헤르만헤세'], ['파우스트', '괴테'], ['대지', '펄벅'] ]
+random.shuffle(bookAry)
+
+## 메인 코드 부분 ##
+
+### 책 이름 트리 ###
+node = TreeNode()
+node.data = bookAry[0][0]
+rootBook = node
+memory.append(node)
+
+for book in bookAry[1:] :
+	name = book[0]
+	node = TreeNode()
+	node.data = name
+
+	current = rootBook
+	while True :
+		if name < current.data :
+			if current.left == None :
+				current.left = node
+				break
+			current = current.left
+		else :
+			if current.right == None :
+				current.right = node
+				break
+			current = current.right
+
+	memory.append(node)
+
+print("책 이름 트리 구성 완료!")
+##
+preorder(rootBook)
+print()
 
 
-def postorder(node):
-    if node == None:
-        return
-    postorder(node.left)
-    postorder(node.right)
-    print(node.data, end="->")
+### 작가 이름 트리 ###
+node = TreeNode()
+node.data = bookAry[0][1]
+rootAuth = node
+memory.append(node)
 
+for book in bookAry[1:] :
+	name = book[1]
+	node = TreeNode()
+	node.data = name
 
+	current = rootAuth
+	while True :
+		if name < current.data :
+			if current.left == None :
+				current.left = node
+				break
+			current = current.left
+		else :
+			if current.right == None :
+				current.right = node
+				break
+			current = current.right
 
+	memory.append(node)
 
-class TreeNode:
-    def __init__(self, data=None):
-        self.left = None
-        self.data = data
-        self.right = None
+print("작가 이름 트리 구성 완료!")
 
-# 이진탐색트리
-# 이진트리중 활용도가 높은 트리로, 데이터 크기를 기준으로 일정 형태로 구성.
+preorder(rootAuth)
+print()
 
+## 책 이름 및 작가 이름 검색 ##
+bookOrAuth = int(input('책검색(1), 작가검색(2)-->'))
+findName = input('검색할 책 또는 작가-->')
 
-if __name__ == "__main__":
+if bookOrAuth == 1 :
+	root = rootBook
+else :
+	root = rootAuth
 
-    node1 = TreeNode()
-    node1.data = 'node1'
-    node2 = TreeNode('node2')
-    node1.left = node2
-    node3 = TreeNode('node3')
-    node1.right = node3
-    node4 = TreeNode('node4')
-    node2.left = node4
-    node5 = TreeNode('node5')
-    node3.left = node5
-    node6 = TreeNode('node6')
-    node3.right = node6
-    node7 = TreeNode('node7')
-    node4.right = node7
-
-    preorder(node1)
-    print('')
-    inorder(node1)
-    print('')
-    postorder(node1)
+current = root
+while True:
+	if findName == current.data :
+		print(findName, '을(를) 찾음.')
+		findYN = True
+		break
+	elif findName < current.data :
+		if current.left == None :
+			print(findName, '이(가) 목록에 없음')
+			break
+		current = current.left
+	else:
+		if current.right == None :
+			print(findName, '이(가) 목록에 없음')
+			break
+		current = current.right
