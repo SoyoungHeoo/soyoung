@@ -1,73 +1,67 @@
-# Queue : first in - first out
-# en_queue : 큐에 데이터 삽입하는 작동
-# de_queue : 데이터를 추출하는 작동
-# front : 저장된 데이터중 첫 번째 데이터
-# rear : 저장된 데이터 중 마지막 데이터
+# 이진트리
 
-# front, rear의 초기값은 -1.
-# stack 은 top 만으로도 구현 가능했으나 큐에서는 front, rear 두 개의 키워드가 필요하다.
-# 값이 증가할 때 rear 1씩 증가.
-# 값이 감소할 때 front가 1씩 증가.
+# 이진트리 생성
 
 
-# 큐가 꽉찼는지 확인하는 함수 : rear 값이 큐크기 -1과 같으면 큐가 꽉찬 것.
-# 큐가 비어있는지 확인하는 함수 : rear 값과 front 값이 같으면 큐가 비어있는 것.
-
-def is_queue_empty():
-    global SIZE, queue, front, rear
-    if front == rear:
-        return True
-    else:
-        return False
+# 이진트리 순회 : 이진트리 노드 전체를 한 번씩 방문하는 것
+# 전위순회, 중위순회, 후위순회
 
 
-def is_queue_full():
-    global SIZE, queue, front, rear
-    if (front == (rear + 1) % SIZE):
-        return True
-    else:
-        return False
-
-
-def de_queue():
-    global SIZE, queue, front, rear
-    if is_queue_empty():
-        print("Queue is Empty!")
+# 전위순회
+def preorder(node):
+    if node == None:
         return
-    front = (front + 1) % len(queue)
-    data = queue[front]
-    queue[front] = None
-    return data
+    print(node.data, end = "->")
+    preorder(node.left)
+    preorder(node.right)
 
-def en_queue(data):
-    global SIZE, queue, front, rear
-    if is_queue_full():
-        print("Queue is Full")
+def inorder(node):
+    if node == None:
         return
-    rear = (rear + 1) % SIZE
-    queue[rear] = data
-    return
+    inorder(node.left)
+    print(node.data, end = "->")
+    inorder(node.right)
 
 
-def peek():  # 확인
-    global SIZE, queue, front, rear
-    if is_queue_empty():
+def postorder(node):
+    if node == None:
         return
-    return queue[front + 1]  # side effect 없음
+    postorder(node.left)
+    postorder(node.right)
+    print(node.data, end="->")
 
 
-SIZE = 5
-queue = [None for _ in range(SIZE)]
-front = -1
-rear = -1
+
+
+class TreeNode:
+    def __init__(self, data=None):
+        self.left = None
+        self.data = data
+        self.right = None
+
+# 이진탐색트리
+# 이진트리중 활용도가 높은 트리로, 데이터 크기를 기준으로 일정 형태로 구성.
 
 
 if __name__ == "__main__":
 
-    en_queue("파이리")
-    print(queue)
-    en_queue("꼬부기")
-    print(queue)
-    print(de_queue())
-    print(queue)
-    print(de_queue())
+    node1 = TreeNode()
+    node1.data = 'node1'
+    node2 = TreeNode('node2')
+    node1.left = node2
+    node3 = TreeNode('node3')
+    node1.right = node3
+    node4 = TreeNode('node4')
+    node2.left = node4
+    node5 = TreeNode('node5')
+    node3.left = node5
+    node6 = TreeNode('node6')
+    node3.right = node6
+    node7 = TreeNode('node7')
+    node4.right = node7
+
+    preorder(node1)
+    print('')
+    inorder(node1)
+    print('')
+    postorder(node1)
